@@ -281,8 +281,8 @@ Resources:
         Type: AWS_PROXY
         IntegrationHttpMethod: POST
         Uri: !Sub
-          - arn:aws:apigateway:${Region}:lambda:path/2015-03-31/functions/${LambdaArn}/invocations
-          - { Region: !Ref "AWS::Region", LambdaArn: !GetAtt HelloFunction.Arn }
+          - arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaArn}/invocations
+          - { LambdaArn: !GetAtt HelloFunction.Arn }
 
   ApiDeployment:
     Type: AWS::ApiGateway::Deployment
@@ -317,7 +317,9 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - "*"
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:PutObject
                 Resource: "*"
               - Effect: Allow
                 Action:
@@ -342,7 +344,9 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - "*"
+                  - logs:* 
+                  - s3:* 
+                  - codebuild:* 
                 Resource: "*"
               - Effect: Allow
                 Action:
@@ -385,7 +389,7 @@ Resources:
                 Owner: !Ref GitHubOwner
                 Repo: !Ref GitHubRepo
                 Branch: !Ref GitHubBranch
-                OAuthToken: !Sub "{{resolve:ssm:/github/oauth/token}}"
+                OAuthToken: !Sub '{{resolve:ssm:/github/oauth/token}}'
               RunOrder: 1
         - Name: Build
           Actions:
