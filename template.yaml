@@ -4,12 +4,16 @@ Description: Simple Hello World Lambda API with CI only using SSM Parameter Stor
 Parameters:
   GitHubRepo:
     Type: String
+    Default: python-cicd
   GitHubOwner:
     Type: String
+    Default: rishichauhan193
   GitHubBranch:
     Type: String
+    Default: main
   LambdaCodeKey:
     Type: String
+    Default: function.zip
 
 Resources:
 
