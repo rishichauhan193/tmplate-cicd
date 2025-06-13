@@ -98,7 +98,7 @@ Resources:
 CodePipelineRole:
   Type: AWS::IAM::Role
   Properties:
-    RoleName: HelloWorldPipelineRole
+    RoleName: MyCodePipelineRole
     AssumeRolePolicyDocument:
       Version: '2012-10-17'
       Statement:
@@ -107,20 +107,13 @@ CodePipelineRole:
             Service: codepipeline.amazonaws.com
           Action: sts:AssumeRole
     Policies:
-      - PolicyName: CodePipelineAccess
+      - PolicyName: CodePipelinePermissions
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
             - Effect: Allow
-              Action:
-                - codebuild:StartBuild
-                - codebuild:BatchGetBuilds
-              Resource: !GetAtt CodeBuildProject.Arn
-            - Effect: Allow
-              Action:
-                - ssm:GetParameter
-              Resource: "*"
-
+              Action: '*'
+              Resource: '*'
 
   CodeBuildRole:
     Type: AWS::IAM::Role
