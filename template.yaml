@@ -220,7 +220,7 @@ Parameters:
     Default: function.zip
   LambdaArtifactBucket:
     Type: String
-    Description: S3 bucket where Lambda code zip is stored
+    Default: cicd-python-bkt
 
 Resources:
 
